@@ -4,14 +4,31 @@ import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser';
 import apiRouter from './routes/api.js';
 import { getTasks, getTask, getCompletedTasks, createTask, updateTaskCompletion, deleteTask, updateTask, getImportantTasks } from './data/tasks.js';
-
-
+import { exec } from 'child_process'; // Import exec from child_process
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Run the seed-db.js script before starting the server
+exec('node ./config/seed-db.js', (error, stdout, stderr) => {
+  if (error) {
+    console.error(`Error executing seed-db.js: ${error.message}`);
+    return;
+  }
+  if (stderr) {
+    console.error(`stderr: ${stderr}`);
+    return;
+  }
+  console.log(`stdout: ${stdout}`);
+  
+  // Once the database is seeded, start the server
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
+});
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -52,7 +69,6 @@ app.get('/taskinfo', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'info.html'));
 });
 
-
 app.get('/tasks/:id', async (req, res) => {
     const { id } = req.params;
     try {
@@ -63,7 +79,6 @@ app.get('/tasks/:id', async (req, res) => {
         res.status(500).render('info', { task: null });
     }
 });
-
 
 app.delete('/tasks/:id', async (req, res) => {
     let { id } = req.params;
@@ -80,7 +95,6 @@ app.delete('/tasks/:id', async (req, res) => {
         res.status(500).send('Error deleting task');
     }
 });
-
 
 app.patch('/tasks/:id/toggle-completed', async (req, res) => {
     const { id } = req.params;
@@ -107,9 +121,3 @@ app.put('/tasks/:taskId', async (req, res) => {
         res.status(500).json({ error: 'Error updating task' });
     }
 });
-
-
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
-
