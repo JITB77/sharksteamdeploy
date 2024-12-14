@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+    <header></header>
+
+    <div class="form-container">
+        <h2>Add a New Task</h2>
+        <form id="taskForm">
+            <div class="form-group">
+                <label for="taskName">Task Name</label>
+                <input type="text" id="taskName" name="taskName" required>
+            </div>
+            <div class="form-group">
+                <label for="taskDescription">Description</label>
+                <textarea id="taskDescription" name="taskDescription" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="taskDeadline">Deadline</label>
+                <input type="date" id="taskDeadline" name="taskDeadline" required>
+            </div>
+            <div class="form-group">
+                <label for="taskPriority">Priority (1 - 2)</label>
+                <input type="number" id="taskPriority" name="taskPriority" min="1" max="2" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Add Task</button>
+            </div>
+        </form>
+    </div>
+
+
+    <footer></footer>
+
+    <script src="./scripts/header.js"></script>
+    <script src="./scripts/taskSubmit.js"></script>
+
+
+</body>
+</html>

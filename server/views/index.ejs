@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    
+    <header></header>
+
+    <div class="main">
+        <img src="/images/wide.jpg" alt="">
+        <p>Success is the sum of small efforts,<br> repeated day in and day out</p>
+    </div>
+
+    <div class="tasks">
+        <h2>UPCOMING IMPORTANT TASKS:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>NAME</th>
+                    <th>DATE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% tasks.forEach(function(task) { %>
+                    <tr>
+                        <td><a href="/tasks/<%= task.id %>"><%= task.name %></a></td>
+                        <td><%= new Date(task.deadline).toLocaleDateString() %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <footer></footer>
+
+    <script src="/scripts/header.js"></script>
+
+</body>
+</html>

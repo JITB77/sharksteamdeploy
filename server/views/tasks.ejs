@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+    <header></header>
+
+    <!-- Upcoming tasks section -->
+    <div class="tasks-all">
+        <a href="/addnewtask" class="task-add-btn">Add new task</a>
+
+        <h2>UPCOMING TASKS:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>NAME</th>
+                    <th>DATE</th>
+                    <th>ACTION</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% upcomingTasks.forEach(function(task) { %>
+                    <tr id="task-<%= task.id %>">
+                        <td>
+                            <button class="toggle-status-btn" data-id="<%= task.id %>" data-completed="false">♥︎</button>
+                            <a href="/tasks/<%= task.id %>" class="task-link"><%= task.name %></a>
+                        </td>
+                        <td>
+                            <%= new Date(task.deadline).toLocaleDateString() %>
+                        </td>
+                        <td>
+                            <button class="delete-btn" data-id="<%= task.id %>">X</button>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Completed tasks section with dynamic toggle -->
+    <div class="tasks-all">
+        <h2>
+            <button id="toggleCompleted">↓</button> COMPLETED TASKS:
+        </h2>
+        <table class="completed">
+            <thead>
+                <tr>
+                    <th>NAME</th>
+                    <th>DATE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% completedTasks.forEach(function(task) { %>
+                    <tr id="task-<%= task.id %>">
+                        <td>
+                            <button class="toggle-status-btn" data-id="<%= task.id %>" data-completed="true">♥︎</button>
+                            <a href="/tasks/<%= task.id %>" class="task-link"><%= task.name %></a>
+                        </td>
+                        <td>
+                            <%= new Date(task.deadline).toLocaleDateString() %>
+                            <button class="delete-btn" data-id="<%= task.id %>">X</button>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+
+    <footer></footer>
+    
+
+    <script src="/scripts/taskCards.js"></script>
+    <script src="/scripts/header.js"></script>
+</body>
+</html>

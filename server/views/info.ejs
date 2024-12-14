@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Task</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+    <header></header>
+
+    <div class="form-container">
+        <h2>Edit Task Information</h2>
+        <% if (task) { %>
+            <form id="taskForm">
+                <div class="form-group">
+                    <label for="taskName">Task Name</label>
+                    <input type="text" id="taskName" placeholder="Task Name" value="<%= task.name %>">
+                </div>
+                <div class="form-group">
+                    <label for="taskDescription">Description</label>
+                    <textarea id="taskDescription" placeholder="Task Description" rows="4"><%= task.description %></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="taskDeadline">Deadline</label>
+                    <input type="date" id="taskDeadline" value="<%= task.deadline ? task.deadline.toISOString().split('T')[0] : '' %>">
+                </div>
+                <div class="form-group">
+                    <label for="taskPriority">Priority</label>
+                    <input type="number" id="taskPriority" value="<%= task.priority %>" min="1" max="2">
+                </div>
+                <div class="form-group">
+                    <label for="taskCompleted">Completed</label>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="taskCompleted" <%= task.completed ? "checked" : "" %>>
+                        <span>Mark as Completed</span>
+                    </div>
+                </div>
+
+                <div class="button-container">
+                    <button type="button" id="update-btn" data-id="<%= task.id %>">Update Task</button>
+                    <button type="button" class="delete-btn" id="deletebutton"data-id="<%= task.id %>">Delete Task</button>
+                </div>
+                
+            </form>
+        <% } else { %>
+            <h2>No Task Found</h2>
+            <p>The task with the specified ID could not be found.</p>
+            <a href="/tasks">Back to Tasks</a>
+        <% } %>
+    </div>
+
+    <footer></footer>
+
+    <script src="/scripts/header.js"></script>
+    <script src="/scripts/taskSubmit.js"></script>
+    
+</body>
+</html>
